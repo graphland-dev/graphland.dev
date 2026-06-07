@@ -113,6 +113,21 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <div className="mt-8 pt-8 border-t border-neutral-800 w-full flex justify-center">
+          <a
+            href="https://www.sslcommerz.com/"
+            target="_blank"
+            rel="noreferrer"
+            title="SSLCommerz"
+          >
+            <img
+              src="https://securepay.sslcommerz.com/public/image/SSLCommerz-Pay-With-logo-All-Size-01.png"
+              alt="SSLCommerz"
+              className="h-auto max-w-full"
+            />
+          </a>
+        </div>
       </div>
     </footer>
   );
