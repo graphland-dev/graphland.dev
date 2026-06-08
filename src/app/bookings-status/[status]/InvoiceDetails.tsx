@@ -12,6 +12,8 @@ import {
   Building2Icon,
   AlertCircleIcon,
 } from "lucide-react";
+import { pdf } from "@react-pdf/renderer";
+import { InvoiceDocument } from "./InvoiceDocument";
 
 type Status = "success" | "cancel" | "fail";
 
@@ -68,13 +70,14 @@ export default function InvoiceDetails({
   invoiceUID,
 }: InvoiceDetailsProps) {
   const [state, setState] = useState<State>({ kind: "loading" });
+  const [isGenerating, setIsGenerating] = useState(false);
   const downloadedRef = useRef(false);
 
   // Build a stable, file-system-safe name for the download
   const fileName = useMemo(() => {
     const safe = (s: string) => s.replace(/[^a-z0-9._-]+/gi, "-");
     const idPart = serviceId ? safe(serviceId) : "booking";
-    return `graphland-invoice-${idPart}.json`;
+    return `graphland-invoice-${idPart}.pdf`;
   }, [serviceId]);
 
   async function load() {
@@ -114,7 +117,7 @@ export default function InvoiceDetails({
     if (status !== "success") return;
     if (downloadedRef.current) return;
     downloadedRef.current = true;
-    downloadInvoice(state.data, fileName);
+    void downloadInvoice(state.data, fileName, setIsGenerating);
   }, [state, status, fileName]);
 
   if (state.kind === "loading") {
@@ -190,7 +193,7 @@ export default function InvoiceDetails({
           <Field
             icon={Building2Icon}
             label="Issued by"
-            value={client.displayName}
+            value={client.displayName?.toUpperCase() ?? "—"}
           />
           <Field
             icon={UserIcon}
@@ -229,11 +232,12 @@ export default function InvoiceDetails({
           </p>
           <button
             type="button"
-            onClick={() => downloadInvoice(data, fileName)}
-            className="inline-flex items-center gap-1.5 rounded-md bg-primary text-neutral-950 px-3 py-1.5 text-sm font-semibold hover:opacity-90 transition-opacity"
+            disabled={isGenerating}
+            onClick={() => void downloadInvoice(data, fileName, setIsGenerating)}
+            className="inline-flex items-center gap-1.5 rounded-md bg-primary text-neutral-950 px-3 py-1.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <DownloadIcon className="size-4" />
-            Download invoice
+            {isGenerating ? "Generating PDF…" : "Download invoice"}
           </button>
         </div>
       </div>
@@ -274,16 +278,50 @@ function Field({
 }
 
 /**
- * Triggers a browser download of the invoice as a JSON file. (The gateway
- * only exposes structured invoice data — there's no PDF endpoint — so we
- * serialize the record to a clean JSON file. Users get a self-contained
- * receipt they can archive, and we can swap in a PDF renderer later
- * without changing the download entry point.)
+ * Renders the invoice with `@react-pdf/renderer` and triggers a browser
+ * download of the resulting `.pdf` blob. The PDF is generated entirely on
+ * the client so the gateway doesn't need to expose a PDF endpoint.
  */
-function downloadInvoice(data: InvoiceResponse, fileName: string) {
+async function downloadInvoice(
+  data: InvoiceResponse,
+  fileName: string,
+  setIsGenerating: (v: boolean) => void,
+) {
+  if (setIsGenerating) setIsGenerating(true);
   try {
-    const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], { type: "application/json" });
+    const customer = {
+      name: pickString(data.invoice.customer, "name"),
+      email: pickString(data.invoice.customer, "email"),
+      phone: pickString(data.invoice.customer, "phone"),
+      address: pickString(
+        data.invoice.customer,
+        "address",
+        "billingAddress",
+        "street",
+      ),
+    };
+
+    const blob = await pdf(
+      <InvoiceDocument
+        invoiceId={data.invoice.id}
+        invoiceStatus={data.invoice.status}
+        amount={Number(data.invoice.amount) || 0}
+        currency={data.invoice.currency}
+        description={data.invoice.description ?? null}
+        customer={customer}
+        client={{
+          displayName: data.client.displayName,
+          logoUrl: data.client.logoUrl,
+        }}
+        identifier={data.identifier}
+        issueDate={new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+        })}
+      />,
+    ).toBlob();
+
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -296,5 +334,7 @@ function downloadInvoice(data: InvoiceResponse, fileName: string) {
   } catch {
     // No-op: a failed client-side download shouldn't break the page;
     // the user can still use the "Download invoice" button manually.
+  } finally {
+    if (setIsGenerating) setIsGenerating(false);
   }
 }
