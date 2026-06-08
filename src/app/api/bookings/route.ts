@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { pgw } from "@/lib/pgw";
 import { ApiError } from "@graphland/pgw-merchant";
-import { pgw, rememberInvoiceUID } from "@/lib/pgw";
+import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
         source: "graphland.dev/products",
       },
     });
-    
+
     return NextResponse.json({
       ok: true,
       invoiceUID: invoice.invoiceUID,
