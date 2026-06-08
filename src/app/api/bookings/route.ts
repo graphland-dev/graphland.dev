@@ -7,9 +7,8 @@ export const runtime = "nodejs";
 interface BookServiceRequest {
   serviceId: string;
   serviceTitle: string;
-  /** Price in major units, e.g. 250000 for 250000 BDT */
   price: number;
-  currency?: "BDT" | "USD" | "EUR" | "GBP" | "CAD" | "AUD" | "NZD";
+  currency?: "BDT";
   description?: string;
   customer: {
     name: string;
@@ -39,7 +38,6 @@ export async function POST(request: Request) {
     customer,
   } = body;
 
-  // ── Validation ────────────────────────────────────────────────────────
   if (!serviceId || !serviceTitle) {
     return badRequest("serviceId and serviceTitle are required");
   }
@@ -60,7 +58,6 @@ export async function POST(request: Request) {
     );
   }
 
-  // ── Build redirect URLs back to the products page ────────────────────
   let origin = "";
   try {
     const referer = request.headers.get("referer");
@@ -72,17 +69,15 @@ export async function POST(request: Request) {
     origin =
       process.env.NEXT_PUBLIC_SITE_URL ??
       process.env.NEXT_PUBLIC_GRAPHQL_API_URL ??
-      "";
+      "https://graphland.dev";
   }
 
+  const identifier = `book:${customer.email}:${serviceId}`;
   const back = (status: string) =>
-    `${origin}/products?status=${status}&service=${encodeURIComponent(serviceId)}`;
-
-  // ── Create the invoice via the Graphland Payment Gateway SDK ─────────
+    `${origin}/bookings-status/${status}?service=${encodeURIComponent(serviceId)}&invoice=${identifier}`;
   try {
     const invoice = await pgw.createInvoice({
-      // Use a unique, idempotent identifier per service + customer + timestamp
-      identifier: `book-${serviceId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      identifier,
       amount: price,
       currency,
       description:

@@ -83,9 +83,9 @@ export default function ServicesSection() {
                   Reserve any service by paying just{" "}
                   <span className="font-semibold text-neutral-100">1%</span>{" "}
                   upfront. Another{" "}
-                  <span className="font-semibold text-neutral-100">1%</span>{" "}
+                  <span className="font-semibold text-neutral-100">59%</span>{" "}
                   is collected when work begins. Pay the remaining{" "}
-                  <span className="font-semibold text-neutral-100">98%</span>{" "}
+                  <span className="font-semibold text-neutral-100">40%</span>{" "}
                   on delivery — no hidden fees, no risk.
                 </p>
               </div>

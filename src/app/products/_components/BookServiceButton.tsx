@@ -18,9 +18,8 @@ import { Button } from "@/components/ui/button";
 export interface BookableService {
   id: string;
   title: string;
-  /** Price in major currency units, e.g. 250000 for 250000 BDT */
   price: number;
-  currency: "BDT" | "USD" | "EUR" | "GBP" | "CAD" | "AUD" | "NZD";
+  currency: "BDT";
   description: string;
 }
 
@@ -161,7 +160,7 @@ export default function BookServiceButton({
                 <PercentIcon className="size-4 mt-0.5 text-primary shrink-0" />
                 <div className="text-xs text-neutral-200 leading-relaxed">
                   <p className="font-semibold text-primary mb-0.5">
-                    Every service — Prebook 1% & Pay 1%
+                    Every service — Prebook 1%
                   </p>
                   <p className="text-neutral-300">
                     To confirm your booking you pay just{" "}
@@ -169,8 +168,8 @@ export default function BookServiceButton({
                       {service.currency} {prebookAmount.toLocaleString()}
                     </span>{" "}
                     (1% of {service.currency}{" "}
-                    {service.price.toLocaleString()}) now. Another 1% is
-                    collected when work begins. The remaining 98% is due on
+                    {service.price.toLocaleString()}) now. Another 59% is
+                    collected when work begins. The remaining 40% is due on
                     delivery.
                   </p>
                 </div>
