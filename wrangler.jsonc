@@ -29,6 +29,10 @@
       "bucket_name": "graphland-dev"
     }
   ],
+  "vars": {
+    "GRAPHLAND_PGW_CLIENT_ID": "graphland",
+    "NEXT_PUBLIC_SITE_URL": "https://graphland.dev"
+  },
   "images": {
     // Enable image optimization
     // see https://opennext.js.org/cloudflare/howtos/image

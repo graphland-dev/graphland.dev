@@ -4,6 +4,8 @@ import {
   LayoutPanelTopIcon,
   MoveUpRightIcon,
   TabletSmartphoneIcon,
+  PercentIcon,
+  SparklesIcon,
 } from "lucide-react";
 import SpotlightCard from "./ui/SpotlightCard";
 import Link from "next/link";
@@ -54,12 +56,48 @@ export default function ServicesSection() {
   return (
     <section className="py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-20 lg:mb-24">
+        <div className="text-center mb-12 lg:mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h2>
           <p className="text-xl text-muted max-w-3xl mx-auto">
             We specialize in creating digital solutions that drive business
             growth and deliver exceptional user experiences.
           </p>
+        </div>
+
+        {/* Prebook 1% & Pay 1% banner — applies to every service */}
+        <div className="mb-12 lg:mb-16">
+          <div className="mx-auto max-w-4xl rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-5 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="shrink-0 inline-flex size-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/30">
+                <PercentIcon className="size-6 text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg sm:text-xl font-bold text-neutral-100 flex flex-wrap items-center gap-2">
+                  Every service
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/20 text-primary border border-primary/40 px-2.5 py-0.5 text-sm font-semibold">
+                    <SparklesIcon className="size-3.5" />
+                    Prebook 1% & Pay 1%
+                  </span>
+                </h3>
+                <p className="text-sm sm:text-base text-neutral-300 mt-1.5 leading-relaxed">
+                  Reserve any service by paying just{" "}
+                  <span className="font-semibold text-neutral-100">1%</span>{" "}
+                  upfront. Another{" "}
+                  <span className="font-semibold text-neutral-100">1%</span>{" "}
+                  is collected when work begins. Pay the remaining{" "}
+                  <span className="font-semibold text-neutral-100">98%</span>{" "}
+                  on delivery — no hidden fees, no risk.
+                </p>
+              </div>
+              <Link
+                href="/products"
+                className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
+                See all services
+                <MoveUpRightIcon className="size-4" />
+              </Link>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12">
