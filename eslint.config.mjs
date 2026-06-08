@@ -20,6 +20,13 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      // Apostrophes / quotes in user-facing copy are fine; escaping every
+      // single one in JSX text is noisy and hurts readability.
+      "react/no-unescaped-entities": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

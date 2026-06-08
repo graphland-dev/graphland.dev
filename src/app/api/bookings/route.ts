@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { ApiError } from "@graphland/pgw-merchant";
-import { pgw } from "@/lib/pgw";
+import { pgw, rememberInvoiceUID } from "@/lib/pgw";
 
 export const runtime = "nodejs";
 
@@ -75,6 +75,14 @@ export async function POST(request: Request) {
   const identifier = `book:${customer.email}:${serviceId}`;
   const back = (status: string) =>
     `${origin}/bookings-status/${status}?service=${encodeURIComponent(serviceId)}&invoice=${identifier}`;
+  // The redirect URLs (success/cancel/fail) are baked into the invoice at
+  // creation time, BEFORE the gateway returns the invoiceUID. The status
+  // page receives the `identifier` (idempotency key) and looks the invoice
+  // up via /api/bookings/lookup?identifier=… which uses the in-memory
+  // identifier → invoiceUID map maintained in @/lib/pgw.
+  const successUrl = back("success");
+  const cancelUrl = back("cancel");
+  const failUrl = back("fail");
   try {
     const invoice = await pgw.createInvoice({
       identifier,
@@ -87,16 +95,16 @@ export async function POST(request: Request) {
         email: customer.email,
         phone: customer.phone,
       },
-      successUrl: back("success"),
-      cancelUrl: back("cancel"),
-      failUrl: back("fail"),
+      successUrl,
+      cancelUrl,
+      failUrl,
       metadata: {
         serviceId,
         serviceTitle,
         source: "graphland.dev/products",
       },
     });
-
+    
     return NextResponse.json({
       ok: true,
       invoiceUID: invoice.invoiceUID,
