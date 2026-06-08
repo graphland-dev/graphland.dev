@@ -72,15 +72,6 @@ export default function Footer() {
                 Return and Refund Policy
               </Link>
             </div>
-
-            <div className="flex items-center space-x-4">
-              <a
-                href="mailto:hello@graphland.dev"
-                className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
-              >
-                graphland.dev@gmail.com
-              </a>
-            </div>
           </div>
         </div>
 

@@ -96,9 +96,9 @@ export default function ContactPage() {
                       Prefer doing things in person?
                     </p>
                     <p className="text-gray-400 text-sm leading-relaxed">
-                      House 4, Road 10, Sector 11, Uttara (1230)
+                      Plot #2675, Road D-1/A, Ranabhola, Dhaka 1230,
                       <br />
-                      Dhaka, Bangladesh
+                      Bangladesh
                     </p>
                   </div>
                 </div>
