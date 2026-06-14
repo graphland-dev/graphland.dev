@@ -90,10 +90,10 @@ export default function ServicesSection() {
                 </p>
               </div>
               <Link
-                href="/products"
+                href="/gigs"
                 className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:opacity-90 transition-opacity"
               >
-                See all services
+                See all gigs
                 <MoveUpRightIcon className="size-4" />
               </Link>
             </div>

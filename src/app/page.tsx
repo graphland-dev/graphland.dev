@@ -1,6 +1,7 @@
 import CompanyLogosSection from "@/components/CompanyLogosSection";
 import ExpertiseSection from "@/components/ExpertiseSection";
 import HeroSection from "@/components/HeroSection";
+import ProductsSection from "@/components/ProductsSection";
 import ServicesSection from "@/components/ServicesSection";
 
 export default function Home() {
@@ -9,8 +10,8 @@ export default function Home() {
       <HeroSection />
       <CompanyLogosSection />
       <ServicesSection />
+      <ProductsSection />
       <ExpertiseSection />
-      {/* <ProductsShowcase /> */}
       {/* <ProjectsSection /> */}
       {/* <ClientsSection /> */}
       {/* <CurvedLoop

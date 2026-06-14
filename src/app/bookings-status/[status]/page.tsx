@@ -172,7 +172,7 @@ function NextSteps({ status }: { status: Status }) {
         </p>
         <p>
           <a
-            href="/products"
+            href="/gigs"
             className="text-primary hover:underline font-medium"
           >
             ← Back to services
@@ -189,7 +189,7 @@ function NextSteps({ status }: { status: Status }) {
       </p>
       <p>
         <a
-          href="/products"
+          href="/gigs"
           className="text-primary hover:underline font-medium"
         >
           ← Try again

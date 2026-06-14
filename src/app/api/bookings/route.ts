@@ -101,7 +101,7 @@ export async function POST(request: Request) {
       metadata: {
         serviceId,
         serviceTitle,
-        source: "graphland.dev/products",
+        source: "graphland.dev/gigs",
       },
     });
 

@@ -48,6 +48,12 @@ export default function Footer() {
                 Services
               </Link>
               <Link
+                href="/products"
+                className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
+              >
+                Products
+              </Link>
+              <Link
                 href="/projects"
                 className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
               >
