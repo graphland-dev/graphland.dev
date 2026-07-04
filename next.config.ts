@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       new URL("https://cdn.graphland.dev/**"),
       new URL("https://v5.airtableusercontent.com/**"),
     ],
+    unoptimized: true,
   },
 };
 

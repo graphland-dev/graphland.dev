@@ -48,6 +48,12 @@ export default function Footer() {
                 Services
               </Link>
               <Link
+                href="/products"
+                className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
+              >
+                Products
+              </Link>
+              <Link
                 href="/projects"
                 className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
               >
@@ -65,15 +71,12 @@ export default function Footer() {
               >
                 Privacy & Terms
               </Link>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <a
-                href="mailto:hello@graphland.dev"
+              <Link
+                href="/refund"
                 className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
               >
-                graphland.dev@gmail.com
-              </a>
+                Return and Refund Policy
+              </Link>
             </div>
           </div>
         </div>
@@ -93,6 +96,10 @@ export default function Footer() {
               >
                 TRAD/DNCC/027891/2025
               </a>
+            </p>
+            <p className="text-neutral-500 text-xs text-center md:text-left">
+              Address: Plot #2675, Road D-1/A, Ranabhola, Dhaka 1230,
+              Bangladesh
             </p>
           </div>
 
@@ -120,6 +127,7 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
             title="SSLCommerz"
+            className="rounded overflow-hidden"
           >
             <img
               src="https://securepay.sslcommerz.com/public/image/SSLCommerz-Pay-With-logo-All-Size-01.png"

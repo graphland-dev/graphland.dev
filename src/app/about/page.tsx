@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import ManagementTeam from "./_components/ManagementTeam";
 
 export default function AboutPage() {
   return (
@@ -280,8 +281,10 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <ManagementTeam />
+
       {/* Milestones */}
-      <section className="py-20 lg:py-32 bg-neutral-900/50">
+      <section className="py-20 lg:py-32">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <h2 className="text-2xl lg:text-4xl font-bold text-neutral-100 text-center mb-16">
             Our Journey
