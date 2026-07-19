@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from "react";
+import ProjectCard from "@/components/ProjectCard";
+import { getSortedProjects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
 interface BrowserWindow {
@@ -172,7 +174,26 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Projects listing section could go here */}
+      {/* Projects listing */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-10">
+            <h2 className="text-2xl lg:text-3xl font-bold text-neutral-100 mb-2">
+              Selected work
+            </h2>
+            <p className="text-sm lg:text-base text-neutral-400">
+              Client platforms and in-house products we&apos;ve designed, built,
+              and shipped.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {getSortedProjects().map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
