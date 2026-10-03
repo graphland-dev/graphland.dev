@@ -54,6 +54,12 @@ export default function Footer() {
                 Products
               </Link>
               <Link
+                href="/portfolio"
+                className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
+              >
+                Portfolio
+              </Link>
+              <Link
                 href="/projects"
                 className="text-neutral-400 hover:text-neutral-100 text-sm transition-colors duration-200"
               >
